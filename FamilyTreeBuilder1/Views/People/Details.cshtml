@@ -1,4 +1,4 @@
-﻿@model FamilyTreeBuilder1.Person
+﻿@model PersonViewModel
 
 @{
     Layout = null;
@@ -18,46 +18,101 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Firstname)
+            @Html.DisplayNameFor(model => model.Person.Firstname)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Firstname)
+            @Html.DisplayFor(model => model.Person.Firstname)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lastname)
+            @Html.DisplayNameFor(model => model.Person.Lastname)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lastname)
+            @Html.DisplayFor(model => model.Person.Lastname)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Birthdate)
+            @Html.DisplayNameFor(model => model.Person.Birthdate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Birthdate)
+            @Html.DisplayFor(model => model.Person.Birthdate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Deathdate)
+            @Html.DisplayNameFor(model => model.Person.Deathdate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Deathdate)
+            @Html.DisplayFor(model => model.Person.Deathdate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FatherNavigation)
+            @Html.DisplayNameFor(model => model.Person.FatherNavigation)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FatherNavigation.Id)
+            @Html.DisplayFor(model => model.Person.FatherNavigation.Id)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MotherNavigation)
+            @Html.DisplayNameFor(model => model.Person.MotherNavigation)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MotherNavigation.Id)
+            @Html.DisplayFor(model => model.Person.MotherNavigation.Id)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Person.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Birthdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Deathdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.FatherNavigation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.MotherNavigation)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Children ) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deathdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FatherNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MotherNavigation.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
 </body>
 </html>

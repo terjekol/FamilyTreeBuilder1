@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FamilyTreeBuilder1;
+using FamilyTreeBuilder1.Models;
 
 namespace FamilyTreeBuilder1.Controllers
 {
@@ -44,7 +45,10 @@ namespace FamilyTreeBuilder1.Controllers
                 return NotFound();
             }
 
-            return View(person);
+            var children = _context.Person.Where(p => p.Mother == id || p.Father == id);
+            var viewModel = new PersonViewModel {Person = person, Children = children};
+
+            return View(viewModel);
         }
 
         // GET: People/Create
