@@ -13,118 +13,85 @@
 </head>
 <body>
 
-<div>
-    <h4>Person</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Person.Firstname)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.Firstname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Person.Lastname)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.Lastname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Person.Birthdate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.Birthdate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Person.Deathdate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.Deathdate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Person.Ismale)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.Ismale)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Person.FatherNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.FatherNavigation.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Person.MotherNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.MotherNavigation.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Person.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        @if (Model.Person.FatherNavigation != null)
+        {
+            <span>Father: @Model.Person.FatherNavigation.Firstname @Model.Person.FatherNavigation.Lastname</span>
+            <a asp-action="Details" asp-route-id="@Model.Person.FatherNavigation.Id">Details</a>
+        }
+        @if (Model.Person.MotherNavigation != null)
+        {
+            <span>Father: @Model.Person.MotherNavigation.Firstname @Model.Person.MotherNavigation.Lastname</span>
+            <a asp-action="Details" asp-route-id="@Model.Person.MotherNavigation.Id">Details</a>
+        }
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.Firstname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.Lastname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.Birthdate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.Deathdate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.Ismale)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.FatherNavigation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.MotherNavigation)
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Children) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Firstname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lastname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Birthdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deathdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ismale)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FatherNavigation.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MotherNavigation.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+        <h2>@Model.Person.Firstname @Model.Person.Lastname</h2>
+
+        <table>
+            <tr>
+                @if (Model.Person.Birthdate != null)
+                {
+                    <td>Birthdate</td>
+                    <td>@Model.Person.Birthdate</td>
+                }
+            </tr>
+            <tr>
+                @if (Model.Person.Deathdate != null)
+                {
+                    <td>Birthdate</td>
+                    <td>@Model.Person.Deathdate</td>
+                }
+            </tr>
+            <tr>
+                @if (Model.Person.Ismale != null)
+                {
+                    <td>Sex</td>
+                    <td>@(Model.Person.Ismale.Value ? "Male" : "Female")</td>
+                }
+
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Person.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+    @if (!Model.Children.Any())
+    {
+        <h3>No children</h3>
     }
-    </tbody>
-</table>
+    else
+    {
+        <h4>Children</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Birth date</th>
+                    <th>Death date</th>
+                    <th>Sex</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Children)
+                {
+                    <tr>
+                        <td>@item.Firstname</td>
+                        <td>@item.Lastname</td>
+                        <td>@item.Birthdate</td>
+                        <td>@item.Deathdate</td>
+                        <td>@(item.Ismale == null ? "" : item.Ismale.Value ? "Male" : "Female")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </body>
 </html>

@@ -43,7 +43,7 @@ namespace FamilyTreeBuilder1.Controllers
                 return NotFound();
             }
 
-            var children = _context.Person.Where(p => p.Mother == id || p.Father == id);
+            var children = _context.Person.Where(p => p.Mother == id || p.Father == id).ToList();
             var viewModel = new PersonViewModel { Person = person, Children = children };
 
 
