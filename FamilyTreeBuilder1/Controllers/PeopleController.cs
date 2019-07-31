@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FamilyTreeBuilder1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using FamilyTreeBuilder1;
-using FamilyTreeBuilder1.Models;
 using FamilyTreeBuilder1.ModelsGenerated;
 
 namespace FamilyTreeBuilder1.Controllers
@@ -23,9 +22,7 @@ namespace FamilyTreeBuilder1.Controllers
         // GET: People
         public async Task<IActionResult> Index()
         {
-            var familyTreeContext = _context.Person
-                .Include(p => p.FatherNavigation)
-                .Include(p => p.MotherNavigation);
+            var familyTreeContext = _context.Person.Include(p => p.FatherNavigation).Include(p => p.MotherNavigation);
             return View(await familyTreeContext.ToListAsync());
         }
 
@@ -47,7 +44,8 @@ namespace FamilyTreeBuilder1.Controllers
             }
 
             var children = _context.Person.Where(p => p.Mother == id || p.Father == id);
-            var viewModel = new PersonViewModel {Person = person, Children = children};
+            var viewModel = new PersonViewModel { Person = person, Children = children };
+
 
             return View(viewModel);
         }
@@ -65,7 +63,7 @@ namespace FamilyTreeBuilder1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Firstname,Lastname,Birthdate,Deathdate,Father,Mother")] Person person)
+        public async Task<IActionResult> Create([Bind("Id,Firstname,Lastname,Birthdate,Deathdate,Father,Mother,Ismale")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +99,7 @@ namespace FamilyTreeBuilder1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Firstname,Lastname,Birthdate,Deathdate,Father,Mother")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Firstname,Lastname,Birthdate,Deathdate,Father,Mother,Ismale")] Person person)
         {
             if (id != person.Id)
             {
@@ -167,6 +165,6 @@ namespace FamilyTreeBuilder1.Controllers
         private bool PersonExists(int id)
         {
             return _context.Person.Any(e => e.Id == id);
-        }    
+        }
     }
 }
