@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FamilyTreeBuilder1.ModelsGenerated;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,9 +33,9 @@ namespace FamilyTreeBuilder1
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-                services.AddEntityFrameworkNpgsql()
-                    .AddDbContext<FamilyTreeContext>()
-                    .BuildServiceProvider();
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<FamilyTreeContext>()
+                .BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

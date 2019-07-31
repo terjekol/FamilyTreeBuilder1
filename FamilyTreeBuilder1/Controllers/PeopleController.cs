@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FamilyTreeBuilder1;
 using FamilyTreeBuilder1.Models;
+using FamilyTreeBuilder1.ModelsGenerated;
 
 namespace FamilyTreeBuilder1.Controllers
 {
@@ -166,6 +167,6 @@ namespace FamilyTreeBuilder1.Controllers
         private bool PersonExists(int id)
         {
             return _context.Person.Any(e => e.Id == id);
-        }
+        }    
     }
 }

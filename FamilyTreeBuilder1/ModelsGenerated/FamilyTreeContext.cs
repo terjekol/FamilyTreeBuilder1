@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace FamilyTreeBuilder1
+namespace FamilyTreeBuilder1.ModelsGenerated
 {
     public partial class FamilyTreeContext : DbContext
     {

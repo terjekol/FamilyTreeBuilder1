@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FamilyTreeBuilder1
+namespace FamilyTreeBuilder1.ModelsGenerated
 {
     public partial class Person
     {

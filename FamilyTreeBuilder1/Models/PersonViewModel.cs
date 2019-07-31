@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FamilyTreeBuilder1.ModelsGenerated;
 
 namespace FamilyTreeBuilder1.Models
 {
