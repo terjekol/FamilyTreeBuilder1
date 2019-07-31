@@ -18,6 +18,7 @@ namespace FamilyTreeBuilder1.ModelsGenerated
         public DateTime? Deathdate { get; set; }
         public int? Father { get; set; }
         public int? Mother { get; set; }
+        public bool? Ismale { get; set; }
 
         public virtual Person FatherNavigation { get; set; }
         public virtual Person MotherNavigation { get; set; }

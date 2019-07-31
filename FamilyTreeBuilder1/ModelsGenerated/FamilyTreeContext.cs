@@ -50,6 +50,8 @@ namespace FamilyTreeBuilder1.ModelsGenerated
                     .HasColumnName("firstname")
                     .HasColumnType("character varying");
 
+                entity.Property(e => e.Ismale).HasColumnName("ismale");
+
                 entity.Property(e => e.Lastname)
                     .HasColumnName("lastname")
                     .HasColumnType("character varying");
